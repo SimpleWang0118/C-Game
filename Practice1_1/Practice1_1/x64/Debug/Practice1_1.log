@@ -1,0 +1,6 @@
+﻿  Game.cpp
+D:\VScommunity\practice1-1\Practice1_1\Practice1_1\Game.cpp(3,25): warning C4838: 从“float”转换到“int”需要收缩转换
+D:\VScommunity\practice1-1\Practice1_1\Practice1_1\Game.cpp(3,25): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\VScommunity\practice1-1\Practice1_1\Practice1_1\Game.cpp(195,12): warning C4838: 从“float”转换到“int”需要收缩转换
+D:\VScommunity\practice1-1\Practice1_1\Practice1_1\Game.cpp(195,12): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  Practice1_1.vcxproj -> D:\VScommunity\practice1-1\Practice1_1\x64\Debug\Practice1_1.exe
