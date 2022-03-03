@@ -45,7 +45,7 @@ private:
 	Uint32 mTickCount;
 	bool mIsRunning;
 	bool mUpdatingActors;
-	class Ship* ship;
+	class Ship* mShip;
 	vector<class Asteroid*> mAsteroids;
 
 

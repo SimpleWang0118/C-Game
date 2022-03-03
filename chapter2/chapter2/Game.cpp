@@ -1,36 +1,52 @@
 #include"Game.h"
 #include"Actor.h"
 #include"SpriteComponent.h"
-#include<SDL_image.h>
+#include"SDL_image.h"
+#include<algorithm>
+#include"SpriteComponent.h"
+#include"ship.h"
+#include"Random.h"
+#include"Asteroid.h"
+
 Game::Game()
+	:mWindow(nullptr)
+	,mRenderer(nullptr)
+	,mIsRunning(true)
+	,mUpdatingActors(false)
 {
+
 }
 
 bool Game::Initialize()
 {
 	if (SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO))
 	{
-		SDL_Log("ÊÓÆµ»òÒôÀÖ³õÊ¼»¯Ê§°Ü£º%s", SDL_GetError());
+		SDL_Log("fail to initialize the video or aduio:%s", SDL_GetError());
 		return false;
 	}
 	mWindow = SDL_CreateWindow("SHIP", 100, 100, 1024, 768, 0);
 	if (!mWindow)
 	{
-		SDL_Log("´°¿Ú³õÊ¼»¯Ê§°Ü£º%s", SDL_GetError());
+		SDL_Log("fail to initialize the window:%s", SDL_GetError());
 		return false;
 	}
 	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (!mRenderer)
 	{
-		SDL_Log("äÖÈ¾Æ÷³õÊ¼»¯Ê§°Ü£º%s", SDL_GetError());
+		SDL_Log("fail to initialize the renderer:%s", SDL_GetError());
 		return false;
 	}
 
 	if (IMG_Init(IMG_INIT_PNG)==0)
 	{
-		SDL_Log("³õÊ¼»¯Í¼Æ¬Ê§°Ü£º%s", SDL_GetError());
+		SDL_Log("fail to initialize the png:%s", SDL_GetError());
 		return false; 
 	}
+
+	Random::Init();
+	LoadData();
+	mTickCount = SDL_GetTicks();
+
 	return true;
 }
 
@@ -46,10 +62,8 @@ void Game::RunLoop()
 
 void Game::ShutDown()
 {
-	while (!mActors.empty())
-	{
-		delete mActors.back();
-	}
+	UnloadData();
+	IMG_Quit();
 	SDL_DestroyRenderer(mRenderer);
 	SDL_DestroyWindow(mWindow);
 	SDL_Quit();
@@ -69,6 +83,20 @@ void Game::AddActor(Actor* actor)
 
 void Game::RemoveActor(Actor* actor)
 {
+	auto iter = find(mPendingActors.begin(), mPendingActors.end(), actor);
+	if (iter != mPendingActors.end())
+	{
+		iter_swap(iter, mPendingActors.end() - 1);
+		mPendingActors.pop_back();
+	}
+
+	iter = find(mActors.begin(), mActors.end(), actor);
+	if (iter != mActors.end())
+	{
+		iter_swap(iter, mActors.end() - 1);
+		mActors.pop_back();
+	}
+
 
 }
 
@@ -88,14 +116,54 @@ void Game::AddSprite(SpriteComponent* sprite)
 
 void Game::RemoveSprite(SpriteComponent* sprite)
 {
+	auto iter = find(mSprites.begin(), mSprites.end(), sprite);
+	mSprites.erase(iter);
+}
+
+SDL_Texture* Game::GetTexture(const std::string& fileName)
+{
+	SDL_Texture* tex = nullptr;
+
+	auto iter = mTexture.find(fileName);
+	if (iter != mTexture.end())
+	{
+		tex = iter->second;
+	}
+	else
+	{
+		SDL_Surface* surf = IMG_Load(fileName.c_str());
+		if (!surf)
+		{
+			SDL_Log("fail to load Texture:%d", fileName.c_str());
+			return nullptr;
+		}
+
+		tex = SDL_CreateTextureFromSurface(mRenderer, surf);
+		SDL_FreeSurface(surf);
+		if (!tex)
+		{
+			SDL_Log("Failed to convert surface to texture for:% s", fileName.c_str());
+			return nullptr;
+		}
+
+		mTexture.emplace(fileName.c_str(), tex);
+	}
+
+	return tex;
 }
 
 void Game::AddAsteroid(Asteroid* ast)
 {
+	mAsteroids.emplace_back(ast);
 }
 
 void Game::RemoveAsteroid(Asteroid* ast)
 {
+	auto iter = find(mAsteroids.begin(),mAsteroids.end(),ast);
+	if (iter!=mAsteroids.end())
+	{
+		mAsteroids.erase(iter);
+	}
 }
 
 void Game::ProcessInput()
@@ -126,8 +194,16 @@ void Game::ProcessInput()
 
 void Game::UpdateGame()
 {
-	float deltaTime;
+	while(!SDL_TICKS_PASSED(SDL_GetTicks(), mTickCount + 16));
+	float deltaTime=(SDL_GetTicks()-mTickCount)/1000.0f;
 	
+	if (deltaTime > 0.05f)
+	{
+		deltaTime = 0.05f;
+	}
+	mTickCount = SDL_GetTicks();
+
+
 	mUpdatingActors = true;
 	for (auto actor : mActors)
 	{
@@ -158,12 +234,40 @@ void Game::UpdateGame()
 
 void Game::GenerateOutput()
 {
+	SDL_SetRenderDrawColor(mRenderer, 220, 220, 220, 255);
+	SDL_RenderClear(mRenderer);
+
+	for (auto sprite : mSprites)
+	{
+		sprite->Draw(mRenderer);
+	}
+	SDL_RenderPresent(mRenderer);
 }
 
 void Game::LoadData()
 {
+	mShip = new Ship(this);
+	mShip->SetPosition(Vector2(512.0f, 383.0f));
+	mShip->SetRotation(Math::PiOver2);
+
+	const int numAsteroid = 20;
+	for (int i = 0; i < numAsteroid; i++)
+	{
+		new Asteroid(this);
+	}
 }
 
 void Game::UnloadData()
 {
+	while (!mActors.empty())
+	{
+		delete mActors.back();
+	}
+
+	for (auto i : mTexture)
+	{
+		SDL_DestroyTexture(i.second);
+	}
+
+	mTexture.clear();
 }

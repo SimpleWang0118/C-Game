@@ -1,7 +1,7 @@
 #pragma once
 #include"Component.h"
 #include"Math.h"
-bool Intersect(const CircleComponent& a, const CircleComponent& b);
+
 class CircleComponent : public Component
 {
 public:
@@ -12,3 +12,5 @@ public:
 private:
 	float mRadius;
 };
+
+bool Intersect(const CircleComponent& a, const CircleComponent& b);
