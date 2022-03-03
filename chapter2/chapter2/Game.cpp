@@ -86,6 +86,18 @@ void Game::AddSprite(SpriteComponent* sprite)
 	mSprites.insert(iter, sprite);
 }
 
+void Game::RemoveSprite(SpriteComponent* sprite)
+{
+}
+
+void Game::AddAsteroid(Asteroid* ast)
+{
+}
+
+void Game::RemoveAsteroid(Asteroid* ast)
+{
+}
+
 void Game::ProcessInput()
 {
 	SDL_Event event;
@@ -142,4 +154,16 @@ void Game::UpdateGame()
 	{
 		delete actor;
 	}
+}
+
+void Game::GenerateOutput()
+{
+}
+
+void Game::LoadData()
+{
+}
+
+void Game::UnloadData()
+{
 }

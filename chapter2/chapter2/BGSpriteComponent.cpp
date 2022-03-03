@@ -1,5 +1,9 @@
 #include"BGSpriteComponent.h"
 
+BGSpriteComponent::~BGSpriteComponent()
+{
+}
+
 void BGSpriteComponent::Update(float deltaTime)
 {
 	SpriteComponent::Update(deltaTime);

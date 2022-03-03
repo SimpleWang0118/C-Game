@@ -8,7 +8,7 @@ class Actor
 public:
 	enum State
 	{
-		Eactive,
+		EActive,
 		EPaused,
 		EDead
 	};
@@ -20,11 +20,18 @@ public:
 	void AddComponent(class Component* component);
 	void RemoveComponent(class Component* component);
 	State GetState() const { return mState; }
+	void SetState(State state) { mState = state; }
+	
+	class Game* GetGame() { return mGame; }
+	
 	float GetScale() const { return mScale; }
+	void SetScale(float scale) { mScale = scale; }
+	
 	const Vector2& GetPosition() const { return mPosition; }
 	float GetRotation() const { return mRotation; }
 	void SetPosition(const Vector2& pos) { mPosition = pos; };
 	void SetRotation(float rot) { mRotation = rot; }
+	
 	Vector2 GetForward()const { return Vector2(Math::Cos(mRotation), -Math::Sin(mRotation)); }
 	void ProcessInput(const uint8_t* keyState);
 	virtual void ActorInput(const uint8_t* keyState);
@@ -34,5 +41,5 @@ private:
 	float mScale;
 	float mRotation;
 	vector<class Component* > mComponent;
-	class Game* game;
+	class Game* mGame;
 };

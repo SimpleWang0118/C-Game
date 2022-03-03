@@ -27,16 +27,10 @@
     <ClCompile Include="Math.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="AnimSpriteComponent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="BGSpriteComponent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ship.cpp">
@@ -52,6 +46,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="InputComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleComponent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,12 +71,6 @@
     <ClInclude Include="Math.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="AnimSpriteComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="BGSpriteComponent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ship.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -90,6 +84,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="InputComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleComponent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
