@@ -1,16 +1,17 @@
 #include"NavComponent.h"
-#include"Component.h"
+#include"Tile.h"
 
 
 NavComponent::NavComponent(Actor* owner, int updateOrder)
-	:mNextNode(nullptr)
+	:MoveComponent(owner,updateOrder)
+	,mNextNode(nullptr)
 {
 }
 
 void NavComponent::Update(float deltaTime)
 {
 	Vector2 diff = mOwner->GetPosition() - mNextNode->GetPosition();
-	if (diff.Length() <= 2.0f)
+	if (diff.Length() <= 2.0f)  
 	{
 		mNextNode = mNextNode->GetParent();
 		TurnTo(mNextNode->GetPosition());

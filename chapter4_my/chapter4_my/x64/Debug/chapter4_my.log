@@ -1,0 +1,2 @@
+﻿Actor.obj : error LNK2001: 无法解析的外部符号 "public: static class Vector2 const Vector2::Zero" (?Zero@Vector2@@2V1@B)
+D:\VScommunity\chapter4_my\chapter4_my\x64\Debug\chapter4_my.exe : fatal error LNK1120: 1 个无法解析的外部命令

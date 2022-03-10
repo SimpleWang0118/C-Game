@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Math.h"
+
 using namespace std;
 
 class Game
@@ -45,7 +46,7 @@ private:
 	bool mIsRunning;
 	bool upDatingActors;
 
-	std::vector<class Enemy*> mEnemies;
+	vector<class Enemy*> mEnemies;
 	class Grid* mGrid;
 	float mNextEnemy;
 

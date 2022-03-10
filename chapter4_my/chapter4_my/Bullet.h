@@ -7,7 +7,7 @@ public:
 	Bullet(class Game* game);
 	void UpdateActor(float deltaTime);
 private:
-	class CircleComponent* mCircleComponent;
+	class CircleComponent* mCircle;
 	float mLiveTime;
 
 };

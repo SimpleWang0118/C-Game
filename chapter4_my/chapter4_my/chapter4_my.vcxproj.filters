@@ -18,9 +18,6 @@
     <ClInclude Include="Actor.h">
       <Filter>资源文件</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>资源文件</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>资源文件</Filter>
     </ClInclude>
@@ -55,6 +52,15 @@
       <Filter>资源文件</Filter>
     </ClInclude>
     <ClInclude Include="Tower.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_image.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
       <Filter>资源文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,13 +101,13 @@
     <ClCompile Include="MoveComponent.cpp">
       <Filter>资源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Search.cpp">
-      <Filter>资源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>资源文件</Filter>
     </ClCompile>
     <ClCompile Include="Tower.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
       <Filter>资源文件</Filter>
     </ClCompile>
   </ItemGroup>

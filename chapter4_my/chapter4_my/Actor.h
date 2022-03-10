@@ -5,6 +5,7 @@
 #include<vector>
 
 using namespace std;
+
 class Actor
 {
 public:
@@ -21,8 +22,8 @@ public:
 	void UpdateComponents(float deltaTime);
 	virtual void UpdateActor(float deltaTime);
 
-	void ProcessInput(const uint8_t& keystate);
-	virtual void ActorInput(const uint8_t keystate);
+	void ProcessInput(const uint8_t* keystate);
+	virtual void ActorInput(const uint8_t* keystate);
 
 	const Vector2& GetPosition() const { return mPosition; }
 	void SetPosition(const Vector2& pos) { mPosition = pos; }
@@ -46,7 +47,7 @@ private:
 	float mRotation;
 	State mState;
 	class Game* mGame;
-	vector<class Component> mComponent;
+	vector<class Component*> mComponent;
 
 
 };

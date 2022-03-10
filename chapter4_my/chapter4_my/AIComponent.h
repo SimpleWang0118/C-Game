@@ -1,9 +1,8 @@
 #pragma once
 #include"Component.h"
-#include"AIState.h"
 #include<unordered_map>
 #include<string>
-#include<SDL.h>
+
 using namespace std;
 
 class AIComponent :public Component

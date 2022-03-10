@@ -1,4 +1,7 @@
 #include"AIComponent.h"
+#include"Actor.h"
+#include"AIState.h"
+#include<SDL.h>
 
 AIComponent::AIComponent(Actor* owner)
 	:Component(owner)

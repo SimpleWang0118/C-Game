@@ -1,13 +1,13 @@
 #pragma once
 #include<cstdint>
-#include"Actor.h"
+
 class Component
 {
 public:
 	Component(class Actor* owner, int updateOrder = 100);
 	virtual ~Component();
 	virtual void Update(float deltaTime);
-	virtual void ProcessInput(const uint8_t& keystate){}
+	virtual void ProcessInput(const uint8_t* keystate){}
 	int GetUpdateOrder()const { return mUpdateOrder; }
 protected:
 	class Actor* mOwner;

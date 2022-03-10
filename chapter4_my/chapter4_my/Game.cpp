@@ -2,7 +2,12 @@
 #include"SDL_image.h"
 #include"Actor.h"
 #include<algorithm>
-
+#include"SpriteComponent.h"
+#include"Enemy.h"
+#include"Grid.h"
+#include"AIComponent.h"
+#include"AIState.h"
+using namespace std;
 Game::Game()
 	:mWindow(nullptr),
 	mRenderer(nullptr),
@@ -96,11 +101,24 @@ void Game::RemoveActor(Actor* actor)
 void Game::AddSprite(SpriteComponent* sprite)
 {
 	//TODO
+	int myDrawOrder = sprite->GetDrawOrder();
+	auto iter = mSprites.begin();
+	for (; iter != mSprites.end(); ++iter)
+	{
+		if (myDrawOrder < (*iter)->GetDrawOrder())
+		{
+			break;
+		}
+	}
+
+	mSprites.insert(iter, sprite);
 }
 
 void Game::RemoveSprite(SpriteComponent* sprite)
 {
 	//TODO
+	auto iter = find(mSprites.begin(), mSprites.end(), sprite);
+	mSprites.erase(iter);
 }
 
 SDL_Texture* Game::GetTexture(const string& filename)
@@ -135,6 +153,23 @@ SDL_Texture* Game::GetTexture(const string& filename)
 Enemy* Game::GetNearestEnemy(const Vector2& pos)
 {
 	//TODO
+	Enemy* best = nullptr;
+	if (mEnemies.size() > 0)
+	{
+		best = mEnemies[0];
+
+		float bestDistSq = (pos - mEnemies[0]->GetPosition()).LengthSq();
+		for (size_t i = 1; i < mEnemies.size(); i++)
+		{
+			float newDistSq = (pos - mEnemies[i]->GetPosition()).LengthSq();
+			if (newDistSq < bestDistSq)
+			{
+				bestDistSq = newDistSq;
+				best = mEnemies[i];
+			}
+		}
+	}
+	return best;
 }
 
 void Game::ProcessInput()
@@ -157,6 +192,23 @@ void Game::ProcessInput()
 	}
 
 	//TODO:
+	if (keystate[SDL_SCANCODE_B])
+	{
+		mGrid->BuildTower();
+	}
+
+	int x, y;
+	Uint32 buttons = SDL_GetMouseState(&x, &y);
+	if (SDL_BUTTON(buttons) & SDL_BUTTON_LEFT)
+	{
+		mGrid->ProcessClick(x, y);
+	}
+	upDatingActors = true;
+	for (auto actor : mActor)
+	{
+		actor->ProcessInput(keystate);
+	}
+	upDatingActors = false;
 }
 
 void Game::UpdateGame()

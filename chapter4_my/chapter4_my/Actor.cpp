@@ -2,6 +2,7 @@
 #include"Game.h"
 #include"Component.h"
 #include<algorithm>
+
 Actor::Actor(Game* game)
 	:mScale(1.0f),
 	mState(EActive),
@@ -43,7 +44,7 @@ void Actor::UpdateActor(float deltaTime)
 {
 }
 
-void Actor::ProcessInput(const uint8_t& keystate)
+void Actor::ProcessInput(const uint8_t* keystate)
 {
 	if (mState == EActive)
 	{
@@ -55,7 +56,7 @@ void Actor::ProcessInput(const uint8_t& keystate)
 	}
 }
 
-void Actor::ActorInput(const uint8_t keystate)
+void Actor::ActorInput(const uint8_t* keystate)
 {
 
 }

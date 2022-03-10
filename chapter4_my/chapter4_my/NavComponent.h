@@ -11,5 +11,5 @@ public:
 	void StartPath(const class Tile* start);
 	void TurnTo(const Vector2& pos);
 private:
-	const class Tail* mNextNode;
+	const class Tile* mNextNode;
 };
