@@ -33,6 +33,30 @@
     <ClInclude Include="AIState.h">
       <Filter>资源文件</Filter>
     </ClInclude>
+    <ClInclude Include="NavComponent.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponent.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleComponent.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>资源文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">
@@ -51,6 +75,33 @@
       <Filter>资源文件</Filter>
     </ClCompile>
     <ClCompile Include="AIState.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NavComponent.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleComponent.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveComponent.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Search.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
       <Filter>资源文件</Filter>
     </ClCompile>
   </ItemGroup>

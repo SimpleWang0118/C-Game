@@ -1,6 +1,6 @@
 #pragma once
 #include<cstdint>
-
+#include"Actor.h"
 class Component
 {
 public:
@@ -9,7 +9,7 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void ProcessInput(const uint8_t& keystate){}
 	int GetUpdateOrder()const { return mUpdateOrder; }
-private:
+protected:
 	class Actor* mOwner;
 	int mUpdateOrder;
 };
