@@ -1,0 +1,15 @@
+#pragma once
+#include"Actor.h"
+
+class Laser : public Actor
+{
+public:
+	Laser(class Game* game);
+
+	void UpdateActor(float DeltaTime) override;
+private:
+
+	class CircleComponent* mCircle;
+	float mDeathTimer;
+
+};
