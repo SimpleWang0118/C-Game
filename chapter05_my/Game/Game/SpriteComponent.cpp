@@ -31,4 +31,8 @@ void SpriteComponent::Draw(Shader* shader)
 
 void SpriteComponent::SetTexture(Texture* texture)
 {
+	mTexture = texture;
+
+	mTexWidth = texture->GetWidth();
+	mTexHeight = texture->GetHeight();
 }

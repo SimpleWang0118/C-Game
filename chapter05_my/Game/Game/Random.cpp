@@ -10,12 +10,13 @@ void Random::Seed(unsigned int seed)
 
 float Random::GetFloat()
 {
-	return 0.0f;
+	return GetFloatRange(0.0f, 1.0f);
 }
 
 float Random::GetFloatRange(float min, float max)
 {
-	return 0.0f;
+	uniform_real_distribution<float> dist(min, max);
+	return dist(sGenerator);
 }
 
 int Random::GetIntRange(int min, int max)
@@ -25,7 +26,8 @@ int Random::GetIntRange(int min, int max)
 
 Vector2 Random::GetVector(const Vector2& min, const Vector2& max)
 {
-	return Vector2();
+	Vector2 r = Vector2(GetFloat(), GetFloat());
+	return min + (max - min) * r;
 }
 
 Vector3 Random::GetVector(const Vector3& min, const Vector3& max)

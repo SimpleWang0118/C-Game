@@ -15,6 +15,9 @@ bool Shader::Load(const string& vertName, const string fragName)
 
 void Shader::Unload()
 {
+	glDeleteProgram(mShaderProgram);
+	glDeleteShader(mVertexShader);
+	glDeleteShader(mFragShader);
 }
 
 void Shader::SetActive()

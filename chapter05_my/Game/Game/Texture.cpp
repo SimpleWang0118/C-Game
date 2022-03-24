@@ -15,6 +15,7 @@ bool Texture::Load(const string& filename)
 
 void Texture::Unload()
 {
+	glDeleteTextures(1, & mTextureID);
 }
 
 void Texture::SetActive()

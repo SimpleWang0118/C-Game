@@ -79,10 +79,26 @@ void Game::RunLoop()
 
 void Game::ShutDown()
 {
+	UnloadData();
+	delete mSpriteVerts;
+	mSpriteShader->Unload();
+	delete mSpriteShader;
+	SDL_GL_DeleteContext(mContext);
+	SDL_DestroyWindow(mWindow);
+	SDL_Quit();
+
 }
 
 void Game::AddActor(Actor* actor)
 {
+	if (mUpdatingActors)
+	{
+		mPandingActor.emplace_back(actor);
+	}
+	else
+	{
+		mActor.emplace_back(actor);
+	}
 }
 
 void Game::RemoveActor(Actor* actor)
@@ -99,7 +115,26 @@ void Game::RemoveSprite(SpriteComponent* sprite)
 
 Texture* Game::GetTexture(const string& filename)
 {
-	return nullptr;
+	Texture* tex = nullptr;
+	auto iter = mTexture.find(filename);
+	if (iter != mTexture.end())
+	{
+		tex = iter->second;
+	}
+	else
+	{
+		tex = new Texture();
+		if (tex->Load(filename))
+		{
+			mTexture.emplace(filename, tex);
+		}
+		else
+		{
+			delete tex;
+			tex = nullptr;
+		}
+	}
+	return tex;
 }
 
 void Game::AddAsteroid(Asteroid* ast)
@@ -118,7 +153,7 @@ void Game::ProcessInput()
 		switch (event.type)
 		{
 			case SDL_QUIT:
-				mIsRunning] = false;
+				mIsRunning = false;
 				break;
 		}
 	}
@@ -126,7 +161,7 @@ void Game::ProcessInput()
 	const Uint8* keyState = SDL_GetKeyboardState(NULL);
 	if (keyState[SDL_SCANCODE_ESCAPE])
 	{
-		mIsRunning = false;;
+		mIsRunning = false;
 	}
 
 	mUpdatingActors = true;
@@ -200,7 +235,17 @@ void Game::GenerateOutput()
 
 bool Game::LoadShaders()
 {
-	return false;
+	mSpriteShader = new Shader();
+	if (!mSpriteShader->Load("Shaders/Sprite.vert", "Shaders/Sprite.frag"))
+	{
+		return false;
+	}
+
+	mSpriteShader->SetActive();
+
+	Matrix4 viewProj = Matrix4::CreateSimpleViewProj(1024.f, 768.f);
+	mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
+	return true;
 }
 
 void Game::CreateSpriteVerts()
@@ -232,4 +277,14 @@ void Game::LoadData()
 
 void Game::UnloadData()
 {
+	while (!mActor.empty())
+	{
+		delete mActor.back();
+	}
+	for (auto i : mTexture)
+	{
+		i.second->Unload();
+		delete i.second;
+	}
+	mTexture.clear();
 }
