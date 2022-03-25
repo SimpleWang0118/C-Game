@@ -80,3 +80,26 @@ void Actor::ComputeWorldTransform()
 		}
 	}
 }
+
+void Actor::AddComponent(Component* component)
+{
+	int myOrder = component->GetUpdateOrder();
+	auto iter = mComponent.begin();
+	for (; iter != mComponent.end(); ++iter)
+	{
+		if (myOrder < (*iter)->GetUpdateOrder())
+		{
+			break;
+		}
+	}
+	mComponent.insert(iter, component);
+}
+
+void Actor::RemoveComponent(Component* component)
+{
+	auto iter = find(mComponent.begin(), mComponent.end(),component);
+	if (iter != mComponent.end())
+	{
+		mComponent.erase(iter);
+	}
+}

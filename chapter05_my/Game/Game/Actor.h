@@ -38,6 +38,9 @@ public:
 	void SetState(State state) { mState = state; }
 
 	class Game* GetGame() { return mGame; }
+
+	void AddComponent(class Component* component);
+	void RemoveComponent(class Component* component);
 private:
 	State mState;
 	Matrix4 mWorldTransform;

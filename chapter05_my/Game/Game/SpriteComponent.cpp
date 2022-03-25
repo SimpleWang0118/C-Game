@@ -29,7 +29,7 @@ void SpriteComponent::Draw(Shader* shader)
 
 }
 
-void SpriteComponent::SetTexture(Texture* texture)
+void SpriteComponent::SetTexture( Texture* texture)
 {
 	mTexture = texture;
 

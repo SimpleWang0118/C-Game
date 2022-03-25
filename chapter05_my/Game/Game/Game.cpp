@@ -103,14 +103,42 @@ void Game::AddActor(Actor* actor)
 
 void Game::RemoveActor(Actor* actor)
 {
+	auto iter = find(mPandingActor.begin(), mPandingActor.end(), actor);
+	if (iter != mPandingActor.end())
+	{
+		iter_swap(iter, mPandingActor.end() - 1);
+		mPandingActor.pop_back();
+	}
+
+	iter = find(mActor.begin(), mActor.end(), actor);
+	if (iter != mActor.end())
+	{
+		iter_swap(iter, mActor.end() - 1);
+		mActor.pop_back();
+	}
 }
 
 void Game::AddSprite(SpriteComponent* sprite)
 {
+	int myDrawOrder = sprite->GetDrawOrder();
+	auto iter = mSprite.begin();
+	for (; iter != mSprite.end(); ++iter)
+	{
+		if (myDrawOrder < (*iter)->GetDrawOrder())
+		{
+			break;
+		}
+	}
+	mSprite.insert(iter, sprite);
 }
 
 void Game::RemoveSprite(SpriteComponent* sprite)
 {
+	auto iter = find(mSprite.begin(), mSprite.end(), sprite);
+	if (iter != mSprite.end())
+	{
+		mSprite.erase(iter);
+	}
 }
 
 Texture* Game::GetTexture(const string& filename)
@@ -139,10 +167,16 @@ Texture* Game::GetTexture(const string& filename)
 
 void Game::AddAsteroid(Asteroid* ast)
 {
+	mAsteroid.emplace_back(ast);
 }
 
 void Game::RemoveAsteroid(Asteroid* ast)
 {
+	auto iter = find(mAsteroid.begin(), mAsteroid.end(), ast);
+	if (iter != mAsteroid.end())
+	{
+		mAsteroid.erase(iter);
+	}
 }
 
 void Game::ProcessInput()
