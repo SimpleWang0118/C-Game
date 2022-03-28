@@ -18,17 +18,17 @@ public:
 
 	void Update(float DeltaTime);
 	virtual void UpdateActor(float DeltaTime);
-	virtual void UpdateComponent(float DeltaTime);
+	 void UpdateComponent(float DeltaTime);
 
 	void ProcessInput(const uint8_t* keyState);
 	virtual void ActorInput(const uint8_t* keyState);
 
 	const Vector2& GetPosition()const { return mPosition; }
-	void SetPosition(const Vector2& pos) { mPosition = pos; }
+	void SetPosition(const Vector2& pos) { mPosition = pos;mRecomputeWorldTransform = true;}
 	float GetScale() const { return mScale; }
-	void SetScale(float scale) { mScale = scale; }
+	void SetScale(float scale) { mScale = scale; mRecomputeWorldTransform = true; }
 	float GetRotation()const { return mRotation; }
-	void SetRotation(float rotation) { mRotation = rotation; }
+	void SetRotation(float rotation) { mRotation = rotation;mRecomputeWorldTransform = true; }
 
 	void ComputeWorldTransform();
 	const Matrix4& GetWorldTransform()const { return mWorldTransform; }

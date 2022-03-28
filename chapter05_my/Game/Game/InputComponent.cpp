@@ -1,6 +1,6 @@
 #include "InputComponent.h"
 #include"Actor.h"
-InputComponent::InputComponent(Actor* owner)
+InputComponent::InputComponent(class Actor* owner)
 	:MoveComponent(owner)
 	,mForwardKey(0)
 	,mBackKey(0)

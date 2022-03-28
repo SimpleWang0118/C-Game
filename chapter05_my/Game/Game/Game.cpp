@@ -8,12 +8,12 @@
 #include"Ship.h"
 #include"Asteroid.h"
 #include"Random.h"
-
+#include<iostream>
 Game::Game()
 	:mWindow(nullptr)
 	,mIsRunning(true)
 	,mSpriteShader(nullptr)
-	,mUpdatingActors(nullptr)
+	,mUpdatingActors(false)
 {
 }
 
@@ -49,14 +49,14 @@ bool Game::Initialize()
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 	{
-		SDL_Log("failed to initialize glew.%s",SDL_GetError());
+		SDL_Log("Failed to initialize GLEW.");
 		return false;
 	}
-
+	cout << "1111" << endl;
 	glGetError();
 	if (!LoadShaders())
 	{
-		SDL_Log("failed to load shaders.%s",SDL_GetError());
+		SDL_Log("Failed to load shaders.");
 		return false;
 	}
 
@@ -64,7 +64,7 @@ bool Game::Initialize()
 	LoadData();
 	mTickCount = SDL_GetTicks();
 
-	return false;
+	return true;
 }
 
 void Game::RunLoop()
@@ -103,13 +103,14 @@ void Game::AddActor(Actor* actor)
 
 void Game::RemoveActor(Actor* actor)
 {
+	cout << "3" << endl;
 	auto iter = find(mPandingActor.begin(), mPandingActor.end(), actor);
 	if (iter != mPandingActor.end())
 	{
 		iter_swap(iter, mPandingActor.end() - 1);
 		mPandingActor.pop_back();
 	}
-
+	cout << "4" << endl;
 	iter = find(mActor.begin(), mActor.end(), actor);
 	if (iter != mActor.end())
 	{
@@ -120,6 +121,7 @@ void Game::RemoveActor(Actor* actor)
 
 void Game::AddSprite(SpriteComponent* sprite)
 {
+
 	int myDrawOrder = sprite->GetDrawOrder();
 	auto iter = mSprite.begin();
 	for (; iter != mSprite.end(); ++iter)
@@ -134,11 +136,9 @@ void Game::AddSprite(SpriteComponent* sprite)
 
 void Game::RemoveSprite(SpriteComponent* sprite)
 {
+
 	auto iter = find(mSprite.begin(), mSprite.end(), sprite);
-	if (iter != mSprite.end())
-	{
-		mSprite.erase(iter);
-	}
+	mSprite.erase(iter);
 }
 
 Texture* Game::GetTexture(const string& filename)
@@ -172,6 +172,7 @@ void Game::AddAsteroid(Asteroid* ast)
 
 void Game::RemoveAsteroid(Asteroid* ast)
 {
+
 	auto iter = find(mAsteroid.begin(), mAsteroid.end(), ast);
 	if (iter != mAsteroid.end())
 	{
@@ -269,6 +270,7 @@ void Game::GenerateOutput()
 
 bool Game::LoadShaders()
 {
+	cout << "2222" << endl;
 	mSpriteShader = new Shader();
 	if (!mSpriteShader->Load("Shaders/Sprite.vert", "Shaders/Sprite.frag"))
 	{

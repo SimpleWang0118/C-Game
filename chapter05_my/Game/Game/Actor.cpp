@@ -2,7 +2,7 @@
 #include"Game.h"
 #include"Component.h"
 #include<algorithm>
-
+#include<iostream>
 Actor::Actor(Game* game)
 	:mState(EActive)
 	,mPosition(Vector2::Zero)
@@ -83,6 +83,7 @@ void Actor::ComputeWorldTransform()
 
 void Actor::AddComponent(Component* component)
 {
+
 	int myOrder = component->GetUpdateOrder();
 	auto iter = mComponent.begin();
 	for (; iter != mComponent.end(); ++iter)
@@ -97,6 +98,7 @@ void Actor::AddComponent(Component* component)
 
 void Actor::RemoveComponent(Component* component)
 {
+
 	auto iter = find(mComponent.begin(), mComponent.end(),component);
 	if (iter != mComponent.end())
 	{

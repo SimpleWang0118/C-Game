@@ -1,11 +1,14 @@
 #include "Random.h"
-
+using namespace std;
 void Random::Init()
 {
+	random_device rd;
+	Random::Seed(rd());
 }
 
 void Random::Seed(unsigned int seed)
 {
+	sGenerator.seed(seed);
 }
 
 float Random::GetFloat()
@@ -21,7 +24,8 @@ float Random::GetFloatRange(float min, float max)
 
 int Random::GetIntRange(int min, int max)
 {
-	return 0;
+	uniform_int_distribution<int> dist(min, max);
+	return dist(sGenerator);
 }
 
 Vector2 Random::GetVector(const Vector2& min, const Vector2& max)
@@ -32,5 +36,8 @@ Vector2 Random::GetVector(const Vector2& min, const Vector2& max)
 
 Vector3 Random::GetVector(const Vector3& min, const Vector3& max)
 {
-	return Vector3();
+	Vector3 r = Vector3(GetFloat(), GetFloat(), GetFloat());
+	return min + (max - min) * r;
 }
+
+mt19937 Random::sGenerator;

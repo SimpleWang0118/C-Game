@@ -3,12 +3,20 @@
 #include"Actor.h"
 #include"Shader.h"
 #include"Texture.h"
+#include"Game.h"
 SpriteComponent::SpriteComponent(Actor* owner, int updateOrder)
+	:Component(owner)
+	,mTexture(nullptr)
+	,mDrawOrder(updateOrder)
+	,mTexWidth(0)
+	,mTexHeight(0)
 {
+	mOwner->GetGame()->AddSprite(this);
 }
 
 SpriteComponent::~SpriteComponent()
 {
+	mOwner->GetGame()->RemoveSprite(this);
 }
 
 void SpriteComponent::Draw(Shader* shader)

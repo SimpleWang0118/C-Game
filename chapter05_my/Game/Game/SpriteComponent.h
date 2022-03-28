@@ -1,8 +1,8 @@
-#pragma once
+
 #include"Component.h"
 #include<SDL.h>
 
-class SpriteComponent :public Component
+class SpriteComponent : public Component
 {
 public:
 	SpriteComponent(class Actor* owner, int updateOrder = 100);

@@ -2,7 +2,7 @@
 #include"SpriteComponent.h"
 #include"Game.h"
 #include"InputComponent.h"
-
+#include"Laser.h"
 Ship::Ship(Game* game)
 	:Actor(game)
 	,mLaserCooldown(0.0f)
@@ -24,8 +24,17 @@ Ship::Ship(Game* game)
 
 void Ship::UpdateActor(float DeltaTime)
 {
+	mLaserCooldown -= DeltaTime;
 }
 
 void Ship::ActorInput(const uint8_t* keyState)
 {
+	if (keyState[SDL_SCANCODE_SPACE] && mLaserCooldown <= 0.0f)
+	{
+		Laser* laser = new Laser(GetGame());
+		laser->SetPosition(GetPosition());
+		laser->SetRotation(GetRotation());
+
+		mLaserCooldown = 0.5f;
+	}
 }
